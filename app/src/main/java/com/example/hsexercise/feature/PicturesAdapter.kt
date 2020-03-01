@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.image_layout.view.*
 class PicturesAdapter(val picturesList:List<FeatureModel>): RecyclerView.Adapter<PicturesAdapter.PicturesViewHolder>() {
 
     private lateinit var context: Context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PicturesViewHolder {
         context = parent.context.applicationContext
         val view = LayoutInflater.from(parent.context).inflate(R.layout.image_layout, parent, false)
@@ -23,7 +24,8 @@ class PicturesAdapter(val picturesList:List<FeatureModel>): RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: PicturesViewHolder, position: Int) {
         Glide.with(context)
-            .load(picturesList[position].url)
+            .load("${picturesList[position].url}.jpg")
+            .placeholder(R.drawable.ic_wallpaper)
             .into(holder.picture)
 
         holder.author.text  = picturesList.get(position).author

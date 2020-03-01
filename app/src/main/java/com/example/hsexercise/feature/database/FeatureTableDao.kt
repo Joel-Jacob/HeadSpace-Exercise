@@ -1,6 +1,7 @@
 package com.example.hsexercise.feature.database
 
 import androidx.room.*
+import com.google.gson.annotations.SerializedName
 import io.reactivex.Maybe
 
 @Dao
@@ -20,7 +21,7 @@ data class FeatureModel(
     @PrimaryKey
     val id: String,
     val author: String,
-    val url: String,
+    @SerializedName("download_url")val url: String,
     val width: Int,
     val height: Int
 )

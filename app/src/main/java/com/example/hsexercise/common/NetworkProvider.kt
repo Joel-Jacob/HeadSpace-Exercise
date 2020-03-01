@@ -1,9 +1,11 @@
 package com.example.hsexercise.common
 
 import com.example.hsexercise.BuildConfig
+import com.example.hsexercise.feature.database.FeatureModel
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -17,12 +19,26 @@ import java.util.concurrent.TimeUnit
 import javax.net.ssl.HostnameVerifier
 
 object NetworkProvider {
+    private var picturesService : PicturesService
+
+    init {
+        picturesService = createService(provideRestClient().createRetrofitAdapter())
+    }
+
     fun provideRestClient() =
         RestClient(RestClientConfig(
             provideGsonConverterFactory(),
             provideRxJava2CallAdapterFactory()).apply {
             addInterceptor(provideHttpLoggingInterceptor())
         })
+
+    fun getPictures(): Observable<List<FeatureModel>>{
+        return picturesService.getPicturesList()
+    }
+
+    private fun createService(retrofit: Retrofit):PicturesService{
+        return retrofit.create(PicturesService::class.java)
+    }
 
     private fun provideGson(): Gson = GsonBuilder()
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -47,7 +63,7 @@ object NetworkProvider {
 }
 
 class RestClient(private val restClientConfig: RestClientConfig) {
-    fun createRetrofitAdapter(hostUrl: String = "https://picsum.photos/"): Retrofit = Retrofit.Builder()
+    fun createRetrofitAdapter(hostUrl: String = "https://picsum.photos"): Retrofit = Retrofit.Builder()
         .addCallAdapterFactory(restClientConfig.callAdapterFactory)
         .addConverterFactory(restClientConfig.converterFactory)
         .client(okHttpClient())
