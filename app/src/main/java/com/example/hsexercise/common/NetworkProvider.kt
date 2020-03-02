@@ -36,6 +36,10 @@ object NetworkProvider {
         return picturesService.getPicturesList()
     }
 
+    fun getPicturesPage(page:Int):Observable<List<FeatureModel>>{
+        return picturesService.getPicturesPage(page)
+    }
+
     private fun createService(retrofit: Retrofit):PicturesService{
         return retrofit.create(PicturesService::class.java)
     }

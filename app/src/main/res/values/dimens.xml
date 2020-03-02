@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_margin">8dp</dimen>
+    <dimen name="image_width">300dp</dimen>
+    <dimen name="image_height">300dp</dimen>
+    <dimen name="text_margin_start">16dp</dimen>
+    <dimen name="text_margin_bottom">8dp</dimen>
+    <dimen name="text_size">16sp</dimen>
+    <dimen name="text_margin_end">16dp</dimen>
+    <dimen name="layout_elevation">4dp</dimen>
+</resources>

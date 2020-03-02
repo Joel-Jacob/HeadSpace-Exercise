@@ -2,7 +2,6 @@ package com.example.hsexercise.common
 
 import android.app.Application
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
 import com.example.hsexercise.feature.database.FeatureModel
